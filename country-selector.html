@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country State City Selector</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+            outline: 0;
+        }
+
+        body {
+            overflow-x: hidden;
+            font-size: 18px;
+            line-height: 1;
+            font-family: sans-serif;
+        }
+
+        input,
+        select {
+            font-size: 18px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .ct-selector {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 100px 2rem;
+            background-image: url(https://i.ibb.co/6vM524H/pexels-thiago-japyassu-929032.jpg);
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        
+        .ct-selector::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 0;
+        }
+
+        .ct-selector_inner {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.7);
+            min-height: 250px;
+        }
+
+        .country,
+        .state,
+        .city {
+            display: none;
+            flex-wrap: wrap;
+            align-items: center;
+            padding: 30px 30px 0;
+        }
+
+        label {
+            padding-right: 20px;
+        }
+
+        .country {
+            display: flex;
+        }
+
+        .country-time,
+        .bg-img {
+            display: none;
+        }
+
+        .country-time {
+            padding: 40px 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="ct-selector">
+            <div class="ct-selector_inner">
+                <div class="country">
+                    <label for="country">Select A Country</label>
+                    <select name="country" id="country">
+                        <option value="0" data-timezone="Asia/Kolkata">Select a country</option>
+                        <option value="01" data-timezone="Asia/Kolkata">India</option>
+                        <option value="02" data-timezone="America/New_York">US</option>
+                        <option value="03" data-timezone="Europe/London">UK</option>
+                        <option value="04" data-timezone="Europe/Moscow">Russia</option>
+                    </select>
+                </div>
+                <div class="state">
+                    <label for="state">Select A State</label>
+                    <select name="state" id="state">
+                        <option value="0">Select State</option>
+                        <option value="India">Gujarat</option>
+                        <option value="India">Maharastra</option>
+                        <option value="India">UP</option>
+                        <option value="US">Alska</option>
+                        <option value="US">Maryland</option>
+                        <option value="US">Ohio</option>
+                        <option value="UK">England</option>
+                        <option value="UK">Scotland</option>
+                        <option value="Russia">Kazan</option>
+                        <option value="Russia">Novosibirsk</option>
+                    </select>
+                </div>
+                <div class="city">
+                    <label for="city">Select A City</label>
+                    <select name="city" id="city">
+                        <option value="0">Select City</option>
+                        <option value="Gujarat">Junagadh</option>
+                        <option value="Gujarat">Ahmedabad</option>
+                        <option value="Gujarat">Rajkot</option>
+                        <option value="Maharastra">Mumbai</option>
+                        <option value="Maharastra">Pune</option>
+                        <option value="Maharastra">Nasik</option>
+                        <option value="UP">Agra</option>
+                        <option value="UP">Prayagraj</option>
+                        <option value="Alska">Chicago</option>
+                        <option value="Alska">LA</option>
+                        <option value="Maryland">Dallas</option>
+                        <option value="Maryland">Sanjose</option>
+                        <option value="Ohio">Denver</option>
+                        <option value="England">Bath</option>
+                        <option value="England">Cambridge</option>
+                        <option value="Scotland">Carlisle</option>
+                        <option value="Scotland">Bradford</option>
+                        <option value="Kazan">Moscow</option>
+                        <option value="Novosibirsk">Samara</option>
+                    </select>
+                </div>
+
+                <div class="country-time">
+                    <p>Current Time in <span class="counry-name"></span> is : <span class="country-timeline"></span> </p>
+                </div>
+                <div class="bg-img">
+                    <img src="https://i.ibb.co/6vM524H/pexels-thiago-japyassu-929032.jpg" alt="Select A Country" loading="lazy"
+                        height="auto" width="auto" />
+                    <img src="https://i.ibb.co/5xk0Krz/pexels-diego-rodriguez-12514446.jpg" alt="India" loading="lazy"
+                        height="auto" width="auto" />
+                    <img src="https://i.ibb.co/j84Vdyr/pexels-mike-bird-3791376.jpg" alt="US" loading="lazy"
+                        height="auto" width="auto" />
+                    <img src="https://i.ibb.co/cLHZ4tp/pexels-leif-bergerson-9545554.jpg" alt="UK" loading="lazy"
+                        height="auto" width="auto" />
+                    <img src="https://i.ibb.co/CnLJzbY/pexels-giorgio-de-angelis-1413412.jpg" alt="Russia"
+                        loading="lazy" height="auto" width="auto" />
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // variable declare
+            let ctSelector = document.querySelector('.ct-selector');
+            let bgImg = document.querySelectorAll('.bg-img img');
+            let country = document.getElementById('country');
+            let state = document.getElementById('state');
+            let city = document.getElementById('city');
+            let stateOptions = document.querySelectorAll('.state option');
+            let cityOptions = document.querySelectorAll('.city option');
+            let stateDiv = document.querySelector('.state');
+            let cityDiv = document.querySelector('.city');
+            let countryEl = document.querySelector('.country-time');
+            let countryName = document.querySelector('.counry-name');
+            let timeZone = document.querySelector('.country-timeline');
+
+            // country selection
+            country.addEventListener('change', (event) => {
+                state.value = 0;
+                city.value = 0;
+                let selectedIndex = country.selectedIndex;
+                let countryOptionText = country.options[selectedIndex].innerText;
+
+                // change background image on country change
+                bgImg.forEach(img => {
+                    if (img.alt === countryOptionText) {
+                        ctSelector.style.backgroundImage = `url(${img.src})`;
+                    }
+                });
+
+                // display states if we select a country
+                if (country.value == 0) {
+                    stateDiv.style.display = "none";
+                    cityDiv.style.display = "none";
+                    countryEl.style.display = "none";
+                } else {
+                    stateDiv.style.display = "block";
+                    cityDiv.style.display = "none";
+                    countryEl.style.display = "block";
+                }       
+
+                // display state option of countries
+                stateOptions.forEach(option => {
+                    if (option.value === countryOptionText) {
+                        option.style.display = "block";
+                    } else {
+                        option.style.display = "none";
+                    }
+                });
+
+                 // add country name & timezone
+                countryName.innerText = countryOptionText;  
+                var selectedOption = country.options[country.selectedIndex];
+                var timezone = selectedOption.getAttribute("data-timezone");
+                var countryTime = new Date().toLocaleTimeString('en-US', {timeZone: timezone, hour12: true, hour: 'numeric', minute: 'numeric'});
+                var countryTimelineSpan = document.querySelector(".country-timeline");
+                countryTimelineSpan.textContent = countryTime;
+            });
+
+            // state selections
+            state.addEventListener('change', (event) => {
+                city.value = 0;
+
+                // display city if we selet state
+                if (state.value == 0) {
+                    cityDiv.style.display = "none";
+                } else {
+                    cityDiv.style.display = "block";
+                }
+
+                let selectedIndex = state.selectedIndex;
+                let stateOptionText = state.options[selectedIndex].innerText;
+
+                // display city option of state
+                cityOptions.forEach(option => {
+                    if (option.value === stateOptionText) {
+                        option.style.display = "block";
+                    } else {
+                        option.style.display = "none";
+                    }
+                });
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>
